@@ -1,19 +1,25 @@
-import { CitiesCard } from "../../components/cities-card/cities-card";
+import { CitiesCardList } from "../../components/cities-card-list/cities-card-list";
+import { OffersList } from '../../types/offer';
+import { Logo } from '../../components/Logo/logo';
+import { useState } from 'react';
 
 type MainPageProps = {
     rentalOffersCount: number;
+    offersList: OffersList[];
 }
 
-function MainPage({rentalOffersCount} : MainPageProps): React.JSX.Element {
+function MainPage({ rentalOffersCount, offersList } : MainPageProps): React.JSX.Element {
+    const [isSortingOpen, setIsSortingOpen] = useState(false);
+
+    const handleSortingToggle = () => setIsSortingOpen((v) => !v);
+
     return(
         <div className="page page--gray page--main">
             <header className="header">
                 <div className="container">
                     <div className="header__wrapper">
                         <div className="header__left">
-                            <a className="header__logo-link header__logo-link--active">
-                                <img className="header__logo" src="img/logo.svg" alt="Rent service logo" width="81" height="41"/> 
-                            </a>
+                            <Logo />
                         </div>
                         <nav className="header__nav">
                             <ul className="header__nav-list">
@@ -80,29 +86,30 @@ function MainPage({rentalOffersCount} : MainPageProps): React.JSX.Element {
                             <h2 className="visually-hidden">Places</h2>
                             <b className="places__found">{rentalOffersCount} places to stay in Amsterdam</b>
                             <form className="places__sorting" action="#" method="get">
-                                <span className="places__sorting-caption">Sort by</span>
-                                <span className="places__sorting-type" tabIndex={0}>
-                                    Popular
+                                <span className="places__sorting-caption">Sort by </span>
+                                <span
+                                    className="places__sorting-type"
+                                    tabIndex={0}
+                                    onClick={handleSortingToggle}
+                                    role="button"
+                                    aria-expanded={isSortingOpen}
+                                >
+                                     Popular
                                     <svg className="places__sorting-arrow" width="7" height="4">
                                         <use href="#icon-arrow-select"></use>
                                     </svg>
                                 </span>
-                                <ul className="places__options places__options--custom places__options--opened">
+                                <ul
+                                    className={`places__options places__options--custom ${isSortingOpen ? 'places__options--opened' : ''}`}
+                                    hidden={!isSortingOpen}
+                                >
                                     <li className="places__option places__option--active" tabIndex={0}>Popular</li>
                                     <li className="places__option" tabIndex={0}>Price: low to high</li>
                                     <li className="places__option" tabIndex={0}>Price: high to low</li>
                                     <li className="places__option" tabIndex={0}>Top rated first</li>
                                 </ul>
                             </form>
-                            <div className="cities__places-list places__list tabs__content">
-
-                                <CitiesCard/>
-                                <CitiesCard/>
-                                <CitiesCard/>
-                                <CitiesCard/>
-                                <CitiesCard/>
-                                
-                            </div>
+                            <CitiesCardList offersList={offersList} />
                         </section>
                         <div className="cities__right-section">
                             <section className="cities__map map"></section>

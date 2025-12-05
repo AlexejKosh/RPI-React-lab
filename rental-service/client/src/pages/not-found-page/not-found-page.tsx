@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Logo } from '../../components/Logo/logo';
 
 function NotFoundPage(): React.JSX.Element {
     return (
@@ -8,9 +9,7 @@ function NotFoundPage(): React.JSX.Element {
                 <div className="container">
                     <div className="header__wrapper">
                         <div className="header__left">
-                            <Link className="header__logo-link" to="/">
-                                <img className="header__logo" src="img/logo.svg" alt="Rent service logo" width="81" height="41" />
-                            </Link>
+                            <Logo />
                         </div>
                     </div>
                 </div>
