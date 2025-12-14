@@ -1,21 +1,42 @@
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { Logo } from "../../components/Logo/logo";
-import { FullOffer } from "../../types/offer";
+import { ReviewForm } from "../../components/review-form/review-form";
+import { ReviewsList } from '../../components/reviews-list/reviews-list';
+import { Map } from '../../components/map/map';
+import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
+import type { FullOffer, OffersList } from "../../types/offer";
+import type { Review } from "../../types/review";
 import { NotFoundPage } from "../not-found-page/not-found-page";
+import { useState } from "react";
 
 type OfferProps = {
   offers: FullOffer[];
+  reviews: Review[];
 }
 
-function OfferPage({ offers }: OfferProps) {
+function OfferPage({ offers, reviews }: OfferProps) {
     const params = useParams();
+    const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
     const mainOffer = offers.find((o) => o.id === params.id);
 
     if (!mainOffer) {
       return <NotFoundPage/>
     }
 
-    const nearbyOffers = offers.filter((o) => o.id !== mainOffer.id).slice(0, 3);
+      const nearbyOffers = offers.filter((o) => o.id !== mainOffer.id).slice(0, 3);
+
+    const nearbyOffersList: OffersList[] = nearbyOffers.map((o) => ({
+      id: o.id,
+      title: o.title,
+      type: o.type,
+      price: o.price,
+      city: o.city,
+      location: o.location,
+      isFavorite: o.isFavorite,
+      isPremium: o.isPremium,
+      rating: o.rating,
+      previewImage: o.images && o.images.length ? o.images[0] : ''
+    }));
 
     const displayType = (type: string) => type === 'room' ? 'Private room' : type[0].toUpperCase() + type.slice(1);
 
@@ -72,7 +93,7 @@ function OfferPage({ offers }: OfferProps) {
                 </h1>
                 <button className="offer__bookmark-button button" type="button">
                   <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use href="#icon-bookmark"></use>
+                    <use xlinkHref="/img/sprite.svg#icon-bookmark"></use>
                   </svg>
                   <span className="visually-hidden">To bookmarks</span>
                 </button>
@@ -131,124 +152,25 @@ function OfferPage({ offers }: OfferProps) {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <h2 className="reviews__title">Reviews &middot; <span className="reviews__amount">1</span></h2>
-                <ul className="reviews__list">
-                  <li className="reviews__item">
-                    <div className="reviews__user user">
-                      <div className="reviews__avatar-wrapper user__avatar-wrapper">
-                        <img className="reviews__avatar user__avatar" src="/img/avatar-max.jpg" width="54" height="54" alt="Reviews avatar" />
-                      </div>
-                      <span className="reviews__user-name">
-                        Max
-                      </span>
-                    </div>
-                    <div className="reviews__info">
-                      <div className="reviews__rating rating">
-                        <div className="reviews__stars rating__stars">
-                          <span style={{width: "80%"}}></span>
-                          <span className="visually-hidden">Rating</span>
-                        </div>
-                      </div>
-                      <p className="reviews__text">
-                        A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                      </p>
-                      <time className="reviews__time" dateTime="2019-04-24">April 2019</time>
-                    </div>
-                  </li>
-                </ul>
-                <form className="reviews__form form" action="#" method="post">
-                  <label className="reviews__label form__label" htmlFor="review">Your review</label>
-                  <div className="reviews__rating-form form__rating">
-                    <input className="form__rating-input visually-hidden" name="rating" value="5" id="5-stars" type="radio" />
-                    <label htmlFor="5-stars" className="reviews__rating-label form__rating-label" title="perfect">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use href="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="4" id="4-stars" type="radio" />
-                    <label htmlFor="4-stars" className="reviews__rating-label form__rating-label" title="good">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use href="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="3" id="3-stars" type="radio" />
-                    <label htmlFor="3-stars" className="reviews__rating-label form__rating-label" title="not bad">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use href="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="2" id="2-stars" type="radio" />
-                    <label htmlFor="2-stars" className="reviews__rating-label form__rating-label" title="badly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use href="#icon-star"></use>
-                      </svg>
-                    </label>
-
-                    <input className="form__rating-input visually-hidden" name="rating" value="1" id="1-star" type="radio" />
-                    <label htmlFor="1-star" className="reviews__rating-label form__rating-label" title="terribly">
-                      <svg className="form__star-image" width="37" height="33">
-                        <use href="#icon-star"></use>
-                      </svg>
-                    </label>
-                  </div>
-                  <textarea className="reviews__textarea form__textarea" id="review" name="review" placeholder="Tell how was your stay, what you like and what can be improved"></textarea>
-                  <div className="reviews__button-wrapper">
-                    <p className="reviews__help">
-                      To submit review please make sure to set <span className="reviews__star">rating</span> and describe your stay with at least <b className="reviews__text-amount">50 characters</b>.
-                    </p>
-                    <button className="reviews__submit form__submit button" type="submit" disabled>Submit</button>
-                  </div>
-                </form>
+                <ReviewsList reviews={reviews} />
+                <ReviewForm />
               </section>
             </div>
           </div>
-          <section className="offer__map map"></section>
+          <section className="offer__map map">
+            <Map city={mainOffer.city} offers={nearbyOffers} hoveredOfferId={hoveredOfferId} />
+          </section>
         </section>
         <div className="container">
           <section className="near-places places">
             <h2 className="near-places__title">Other places in the neighbourhood</h2>
             <div className="near-places__list places__list">
-              {nearbyOffers.map((o) => (
-                <article className="near-places__card place-card" key={o.id}>
-                  {o.isPremium && (
-                    <div className="place-card__mark">
-                      <span>Premium</span>
-                    </div>
-                  )}
-                  <div className="near-places__image-wrapper place-card__image-wrapper">
-                    <Link to={ `/offer/${o.id}` }>
-                      <img className="place-card__image" src={o.images[0]} width="260" height="200" alt="Place image" />
-                    </Link>
-                  </div>
-                  <div className="place-card__info">
-                    <div className="place-card__price-wrapper">
-                      <div className="place-card__price">
-                        <b className="place-card__price-value">&euro;{o.price}</b>
-                        <span className="place-card__price-text">&#47;&nbsp;night</span>
-                      </div>
-                      <button className={`place-card__bookmark-button ${o.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-                        <svg className="place-card__bookmark-icon" width="18" height="19">
-                          <use href="#icon-bookmark"></use>
-                        </svg>
-                        <span className="visually-hidden">{o.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-                      </button>
-                    </div>
-                    <div className="place-card__rating rating">
-                      <div className="place-card__stars rating__stars">
-                        <span style={{width: `${(o.rating / 5) * 100}%`}}></span>
-                        <span className="visually-hidden">Rating</span>
-                      </div>
-                    </div>
-                    <h2 className="place-card__name">
-                      <a href="#">{o.title}</a>
-                    </h2>
-                    <p className="place-card__type">{displayType(o.type)}</p>
-                  </div>
-                </article>
-              ))}
+              <CitiesCardList
+                offersList={nearbyOffersList}
+                onHover={setHoveredOfferId}
+                containerClass="near-places__list places__list"
+                cardRootClass="near-places__card place-card"
+              />
             </div>
           </section>
         </div>

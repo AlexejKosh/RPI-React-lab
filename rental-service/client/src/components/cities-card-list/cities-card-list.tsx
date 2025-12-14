@@ -3,14 +3,28 @@ import { CitiesCard } from '../cities-card/cities-card';
 
 type CitiesCardListProps = {
     offersList: OffersList[];
+    onHover?: (id: string) => void;
+    containerClass?: string;
+    cardRootClass?: string;
 };
 
-function CitiesCardList({ offersList }: CitiesCardListProps) {
+function CitiesCardList({ offersList, onHover, containerClass, cardRootClass }: CitiesCardListProps) {
+    const container = containerClass ?? 'cities__plases-list tabs__content';
     return(
-        <div className="cities__plases-list tabs__content">
+        <div className={container}>
             {Array.from(offersList, (item) =>
-                <CitiesCard key={ item.id } id={ item.id } title={ item.title } type={ item.type } price={ item.price }
-                    previewImage={ item.previewImage } isPremium={ item.isPremium } rating={ item.rating } />
+                <CitiesCard
+                    key={ item.id }
+                    id={ item.id }
+                    title={ item.title }
+                    type={ item.type }
+                    price={ item.price }
+                    previewImage={ item.previewImage }
+                    isPremium={ item.isPremium }
+                    rating={ item.rating }
+                    onHover={onHover}
+                    rootClass={cardRootClass}
+                />
             )}
         </div>
     );

@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Link } from 'react-router-dom';
 
 type CitiesCardProps = {
@@ -9,12 +8,18 @@ type CitiesCardProps = {
     isPremium: boolean;
     previewImage: string;
     rating: number;
+    onHover?: (id: string) => void;
+    rootClass?: string;
 }
 
-function CitiesCard({ id, title, type, price, previewImage, isPremium, rating }: CitiesCardProps) {
-    const [, setOfferId] = useState('');
+function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, onHover, rootClass }: CitiesCardProps) {
+    const articleClass = rootClass ?? 'cities__card place-card';
     return(
-        <article className="cities__card place-card" onMouseOver={() => setOfferId(id)} onMouseOut={() => setOfferId('')}>
+        <article
+            className={articleClass}
+            onMouseOver={() => onHover?.(id)}
+            onMouseOut={() => onHover?.('')}
+        >
             {isPremium && (
                 <div className="place-card__mark">
                     <span>Premium</span>

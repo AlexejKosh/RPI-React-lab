@@ -8,17 +8,17 @@ export const offersList : OffersList[] = [
         'price': 370,
         'previewImage': '/img/paris-1.jpg',
         'city': {
-            'name': 'Paris',
+            'name': 'Amsterdam',
             'location': {
-                'latitude': 48.85661,
-                'longitude': 2.351499,
-                'zoom': 13
+                'latitude': 52.37454,
+                'longitude': 4.897976,
+                'zoom': 12
             }
         },
         'location': {
-            'latitude': 48.86861,
-            'longitude': 2.342499,
-            'zoom': 16
+            'latitude': 52.3909553943508,
+            'longitude': 4.85309666406198,
+            'zoom': 14
         },
         'isPremium': false,
         'isFavorite': true,
@@ -31,17 +31,17 @@ export const offersList : OffersList[] = [
         'price': 120,
         'previewImage': '/img/cologne-1.jpg',
         'city': {
-            'name': 'Cologne',
+            'name': 'Amsterdam',
             'location': {
-                'latitude': 50.938361,
-                'longitude': 6.959974,
-                'zoom': 13
+                'latitude': 52.37454,
+                'longitude': 4.897976,
+                'zoom': 12
             }
         },
         'location': {
-            'latitude': 50.940361,
-            'longitude': 6.960974,
-            'zoom': 16
+            'latitude': 52.3609553943508,
+            'longitude': 4.85309666406198,
+            'zoom': 14
         },
         'isPremium': false,
         'isFavorite': false,
@@ -58,13 +58,13 @@ export const offersList : OffersList[] = [
             'location': {
                 'latitude': 52.37454,
                 'longitude': 4.897976,
-                'zoom': 13
+                'zoom': 12
             }
         },
         'location': {
-            'latitude': 52.37554,
-            'longitude': 4.895976,
-            'zoom': 16
+            'latitude': 52.3909553943508,
+            'longitude': 4.929309666406198,
+            'zoom': 14
         },
         'isPremium': true,
         'isFavorite': true,
@@ -77,17 +77,17 @@ export const offersList : OffersList[] = [
         'price': 420,
         'previewImage': '/img/hamburg-1.jpg',
         'city': {
-            'name': 'Hamburg',
+            'name': 'Amsterdam',
             'location': {
-                'latitude': 53.550341,
-                'longitude': 10.000654,
-                'zoom': 13
+                'latitude': 52.37454,
+                'longitude': 4.897976,
+                'zoom': 12
             }
         },
         'location': {
-            'latitude': 53.551341,
-            'longitude': 10.002654,
-            'zoom': 16
+            'latitude': 52.3809553943508,
+            'longitude': 4.939309666406198,
+            'zoom': 14
         },
         'isPremium': true,
         'isFavorite': false,

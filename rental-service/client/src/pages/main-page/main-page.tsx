@@ -1,5 +1,6 @@
 import { CitiesCardList } from "../../components/cities-card-list/cities-card-list";
 import { OffersList } from '../../types/offer';
+import { Map } from '../../components/map/map';
 import { Logo } from '../../components/Logo/logo';
 import { useState } from 'react';
 
@@ -10,6 +11,7 @@ type MainPageProps = {
 
 function MainPage({ rentalOffersCount, offersList } : MainPageProps): React.JSX.Element {
     const [isSortingOpen, setIsSortingOpen] = useState(false);
+    const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
 
     const handleSortingToggle = () => setIsSortingOpen((v) => !v);
 
@@ -109,10 +111,10 @@ function MainPage({ rentalOffersCount, offersList } : MainPageProps): React.JSX.
                                     <li className="places__option" tabIndex={0}>Top rated first</li>
                                 </ul>
                             </form>
-                            <CitiesCardList offersList={offersList} />
+                            <CitiesCardList offersList={offersList} onHover={setHoveredOfferId} />
                         </section>
                         <div className="cities__right-section">
-                            <section className="cities__map map"></section>
+                            <Map city={offersList[0]?.city} offers={offersList} hoveredOfferId={hoveredOfferId} />
                         </div>
                     </div>
                 </div>

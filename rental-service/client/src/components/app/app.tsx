@@ -6,16 +6,18 @@ import { OfferPage } from "../../pages/offer-page/offer-page";
 import { NotFoundPage } from "../../pages/not-found-page/not-found-page";
 import { PrivateRoute } from '../private-route/private-route';
 import { FullOffer, OffersList } from '../../types/offer';
+import { Review } from '../../types/review';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
+ 
 type AppMainPageProps = {
     rentalOffersCount: number;
     offersList: OffersList[];
     offers: FullOffer[];
+    reviews: Review[];
 }
 
-function App({ rentalOffersCount, offersList, offers }: AppMainPageProps): React.JSX.Element {
+function App({ rentalOffersCount, offersList, offers, reviews }: AppMainPageProps): React.JSX.Element {
     return(
         <BrowserRouter>
             <Routes>
@@ -37,9 +39,9 @@ function App({ rentalOffersCount, offersList, offers }: AppMainPageProps): React
                 />
                 <Route
                     path={AppRoute.Offer}
-                    element={<OfferPage offers={ offers }/>}
+                    element={<OfferPage offers={ offers } reviews={ reviews } />}
                 />
-                <Route path={ `${AppRoute.Offer}/:id` } element={ <OfferPage offers={offers}/> }/>
+                <Route path={ `${AppRoute.Offer}/:id` } element={ <OfferPage offers={offers} reviews={ reviews } /> }/>
                 <Route
                     path={AppRoute.NotFound}
                     element={<NotFoundPage/>}
