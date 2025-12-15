@@ -5,25 +5,23 @@ import { FavoritesPage } from "../../pages/favorites-page/favorites-page";
 import { OfferPage } from "../../pages/offer-page/offer-page";
 import { NotFoundPage } from "../../pages/not-found-page/not-found-page";
 import { PrivateRoute } from '../private-route/private-route';
-import { FullOffer, OffersList } from '../../types/offer';
+import { FullOffer } from '../../types/offer';
 import { Review } from '../../types/review';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
  
 type AppMainPageProps = {
-    rentalOffersCount: number;
-    offersList: OffersList[];
     offers: FullOffer[];
     reviews: Review[];
 }
 
-function App({ rentalOffersCount, offersList, offers, reviews }: AppMainPageProps): React.JSX.Element {
+function App({ offers, reviews }: AppMainPageProps): React.JSX.Element {
     return(
         <BrowserRouter>
             <Routes>
                 <Route
                     path={AppRoute.Main}
-                    element={<MainPage rentalOffersCount={ rentalOffersCount } offersList={ offersList }/>}
+                    element={<MainPage />}
                 />
                 <Route
                     path={AppRoute.Login}
@@ -33,7 +31,7 @@ function App({ rentalOffersCount, offersList, offers, reviews }: AppMainPageProp
                     path={AppRoute.Favorites}
                     element={
                         <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
-                            <FavoritesPage favorites={offers.slice(0, 2)} />
+                            <FavoritesPage favorites={offers.filter((o) => o.price <= 200)} />
                         </PrivateRoute>
                     }
                 />

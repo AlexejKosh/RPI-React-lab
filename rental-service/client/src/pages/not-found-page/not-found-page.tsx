@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 import { Logo } from '../../components/Logo/logo';
 
 function NotFoundPage(): React.JSX.Element {

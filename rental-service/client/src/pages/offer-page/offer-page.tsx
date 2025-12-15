@@ -8,6 +8,8 @@ import type { FullOffer, OffersList } from "../../types/offer";
 import type { Review } from "../../types/review";
 import { NotFoundPage } from "../not-found-page/not-found-page";
 import { useState } from "react";
+import { getNearbyOffers, buildOffersList } from "../../utils/nearby";
+import { useLocalReviews } from "../../hooks/useLocalReviews";
 
 type OfferProps = {
   offers: FullOffer[];
@@ -17,26 +19,15 @@ type OfferProps = {
 function OfferPage({ offers, reviews }: OfferProps) {
     const params = useParams();
     const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
+    const { localReviews, addReview } = useLocalReviews(reviews);
     const mainOffer = offers.find((o) => o.id === params.id);
 
     if (!mainOffer) {
       return <NotFoundPage/>
     }
 
-      const nearbyOffers = offers.filter((o) => o.id !== mainOffer.id).slice(0, 3);
-
-    const nearbyOffersList: OffersList[] = nearbyOffers.map((o) => ({
-      id: o.id,
-      title: o.title,
-      type: o.type,
-      price: o.price,
-      city: o.city,
-      location: o.location,
-      isFavorite: o.isFavorite,
-      isPremium: o.isPremium,
-      rating: o.rating,
-      previewImage: o.images && o.images.length ? o.images[0] : ''
-    }));
+    const nearbyOffers = getNearbyOffers(offers, mainOffer);
+    const nearbyOffersList: OffersList[] = buildOffersList(nearbyOffers);
 
     const displayType = (type: string) => type === 'room' ? 'Private room' : type[0].toUpperCase() + type.slice(1);
 
@@ -51,7 +42,7 @@ function OfferPage({ offers, reviews }: OfferProps) {
             <nav className="header__nav">
               <ul className="header__nav-list">
                 <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="#">
+                  <a className="header__nav-link header__nav-link--profile" href="/favorites">
                     <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
                     <span className="header__user-name user__name">Myemail@gmail.com</span>
@@ -59,7 +50,7 @@ function OfferPage({ offers, reviews }: OfferProps) {
                   </a>
                 </li>
                 <li className="header__nav-item">
-                  <a className="header__nav-link" href="#">
+                  <a className="header__nav-link" href="/login">
                     <span className="header__signout">Sign out</span>
                   </a>
                 </li>
@@ -152,8 +143,8 @@ function OfferPage({ offers, reviews }: OfferProps) {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsList reviews={reviews} />
-                <ReviewForm />
+                <ReviewsList reviews={localReviews} />
+                <ReviewForm onAddReview={addReview} />
               </section>
             </div>
           </div>

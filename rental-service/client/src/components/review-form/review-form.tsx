@@ -1,6 +1,10 @@
 import React, { useState } from 'react';
 
-function ReviewForm(): React.JSX.Element {
+type ReviewFormProps = {
+  onAddReview: (comment: string, rating: number) => void;
+}
+
+function ReviewForm({ onAddReview }: ReviewFormProps): React.JSX.Element {
   const [rating, setRating] = useState<number | null>(null);
   const [text, setText] = useState('');
 
@@ -8,9 +12,10 @@ function ReviewForm(): React.JSX.Element {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    if (!isValid) {
+    if (!isValid || rating === null) {
       return;
     }
+    onAddReview(text.trim(), rating);
     setRating(null);
     setText('');
   };
