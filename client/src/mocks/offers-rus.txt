@@ -1,0 +1,223 @@
+offerId: 1
+title: Деревянный и каменный дом
+description: Новая просторная вилла, один этаж. Все удобства, джакузи и красивые виды. Идеально для семей
+city: Amsterdam
+isPremium: false
+isFavorite: true
+rating: 4.9
+type: house
+rooms: 3
+guests: 3
+price: 370
+features: Breakfast, Laptop friendly workspace, Towels
+latitude: 52.39096
+longitude: 4.85310
+userId: 2
+
+offerId: 2
+title: Уютная студия в старом городе
+description: Маленькая, но уютная студия в историческом центре Кельна. Идеально для путешественников-одиночек
+city: Amsterdam
+isPremium: false
+isFavorite: false
+rating: 4.3
+type: room
+rooms: 2
+guests: 1
+price: 120
+features: Air conditioning, Towels, Washer
+latitude: 52.36096
+longitude: 4.85310
+userId: 3
+
+offerId: 3
+title: Апартамент с видом на канал
+description: Яркий апартамент с красивым видом на канал. Большая гостиная, два балкона, полностью оборудованная кухня
+city: Amsterdam
+isPremium: true
+isFavorite: true
+rating: 4.8
+type: apartment
+rooms: 3
+guests: 4
+price: 250
+features: Breakfast, Baby seat, Fridge
+latitude: 52.39096
+longitude: 4.92931
+userId: 2
+
+offerId: 4
+title: Современный дом с садом
+description: Просторный двухэтажный дом с частным садом и зоной барбекю. Отличный выбор для семей
+city: Amsterdam
+isPremium: true
+isFavorite: false
+rating: 4.7
+type: house
+rooms: 4
+guests: 5
+price: 420
+features: Laptop friendly workspace, Air conditioning, Breakfast
+latitude: 52.38096
+longitude: 4.93931
+userId: 1
+
+offerId: 5
+title: Элегантный апартамент рядом с Эйфелевой башней
+description: Стильный апартамент в пешеходной доступности от Эйфелевой башни. Идеально для пар
+city: Paris
+isPremium: true
+isFavorite: false
+rating: 4.7
+type: apartment
+rooms: 2
+guests: 2
+price: 310
+features: Washer, Breakfast, Laptop friendly workspace
+latitude: 48.85837
+longitude: 2.29448
+userId: 1
+
+offerId: 6
+title: Маленькая комната в Монмартре
+description: Доступная комната в художественном квартале Монмартр. Отличная городская атмосфера
+city: Paris
+isPremium: false
+isFavorite: false
+rating: 4.1
+type: room
+rooms: 2
+guests: 1
+price: 95
+features: Baby seat, Towels, Air conditioning
+latitude: 48.88670
+longitude: 2.34310
+userId: 3
+
+offerId: 7
+title: Современная квартира рядом с Лувром
+description: Современная и светлая квартира близко к музею Лувр. Идеально для осмотра достопримечательностей
+city: Paris
+isPremium: false
+isFavorite: true
+rating: 4.6
+type: apartment
+rooms: 3
+guests: 4
+price: 280
+features: Breakfast, Fridge, Washer
+latitude: 48.86061
+longitude: 2.33764
+userId: 2
+
+offerId: 8
+title: Люксовый пентхаус с видом на город
+description: Просторный люксовый пентхаус с панорамным видом на Париж. Комфорт высшего уровня
+city: Paris
+isPremium: true
+isFavorite: true
+rating: 5.0
+type: apartment
+rooms: 4
+guests: 6
+price: 520
+features: Laptop friendly workspace, Air conditioning, Baby seat
+latitude: 48.87379
+longitude: 2.29503
+userId: 1
+
+offerId: 9
+title: Современный апартамент рядом с Рейном
+description: Стильный современный апартамент рядом с рекой Рейн. Спокойная зона, отличные транспортные связи
+city: Cologne
+isPremium: true
+isFavorite: false
+rating: 4.7
+type: apartment
+rooms: 3
+guests: 4
+price: 210
+features: Towels, Breakfast, Washer
+latitude: 50.94810
+longitude: 6.94430
+userId: 3
+
+offerId: 10
+title: Тихая комната рядом с центром города
+description: Частная комната в спокойном районе, 10 минут от центра Кельна на трамвае
+city: Cologne
+isPremium: false
+isFavorite: false
+rating: 4.2
+type: room
+rooms: 2
+guests: 1
+price: 95
+features: Air conditioning, Fridge, Breakfast
+latitude: 50.92780
+longitude: 6.97310
+userId: 2
+
+offerId: 11
+title: Люксовый лофт в центре Брюсселя
+description: Просторный лофт в центре Брюсселя. Панорамные окна, современный дизайн, идеально для командировок
+city: Brussels
+isPremium: true
+isFavorite: true
+rating: 4.9
+type: apartment
+rooms: 2
+guests: 2
+price: 320
+features: Laptop friendly workspace, Baby seat, Breakfast
+latitude: 50.85045
+longitude: 4.34878
+userId: 1
+
+offerId: 12
+title: Современный лофт рядом с гаванью
+description: Просторный современный лофт рядом с гаванью Брюсселя. Панорамные окна, высокие потолки и стильный интерьер
+city: Brussels
+isPremium: true
+isFavorite: false
+rating: 4.7
+type: apartment
+rooms: 2
+guests: 2
+price: 310
+features: Washer, Laptop friendly workspace, Air conditioning
+latitude: 50.85100
+longitude: 4.35170
+userId: 2
+
+offerId: 13
+title: Тихая комната в зелёном районе
+description: Уютная частная комната в спокойном зелёном районе Гамбурга. Идеально для студентов или деловых путешественников
+city: Hamburg
+isPremium: false
+isFavorite: false
+rating: 4.2
+type: room
+rooms: 2
+guests: 1
+price: 95
+features: Breakfast, Towels, Fridge
+latitude: 53.57530
+longitude: 10.01580
+userId: 3
+
+offerId: 14
+title: Семейный дом с садом
+description: Комфортный семейный дом с частным садом. Идеален для длительных проживаний и путешествий с детьми
+city: Hamburg
+isPremium: false
+isFavorite: true
+rating: 4.9
+type: house
+rooms: 4
+guests: 5
+price: 420
+features: Baby seat, Air conditioning, Breakfast
+latitude: 53.56190
+longitude: 9.94210
+userId: 1

@@ -7,7 +7,7 @@ User.init({
   username: {
     type: DataTypes.STRING,
     allowNull: false,
-validate: {
+    validate: {
       len: [1, 15]
     }
   },
@@ -22,8 +22,6 @@ validate: {
   password: {
     type: DataTypes.STRING,
     allowNull: false,
-
-
   },
   userType: {
     type: DataTypes.ENUM,
