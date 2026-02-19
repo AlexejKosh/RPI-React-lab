@@ -9,6 +9,8 @@ import type { FullOffer } from '../../types/offer';
 import type { Review } from '../../types/review';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { useAppSelector } from '../../hooks';
+import { LoadingPage } from '../loading-page/loading-page';
  
 type AppMainPageProps = {
     offers: FullOffer[];
@@ -16,6 +18,13 @@ type AppMainPageProps = {
 }
 
 function App({ offers, reviews }: AppMainPageProps): React.JSX.Element {
+    const authorizationStatus = useAppSelector((state) => state.authorizationStatus);
+    const isQuestionsDataLoading = useAppSelector((state) => state.isOffersDataLoading);
+    if (authorizationStatus === AuthorizationStatus.Unknown || isQuestionsDataLoading) {
+        return (
+            <LoadingPage />
+        );
+    }
     return(
         <BrowserRouter>
             <Routes>
@@ -30,7 +39,7 @@ function App({ offers, reviews }: AppMainPageProps): React.JSX.Element {
                 <Route
                     path={AppRoute.Favorites}
                     element={
-                        <PrivateRoute authorizationStatus={AuthorizationStatus.Auth}>
+                        <PrivateRoute authorizationStatus={authorizationStatus}>
                             <FavoritesPage favorites={offers.filter((o) => o.isFavorite )} favoritesCount={ offers.filter((o) => o.isFavorite ).length }/>
                         </PrivateRoute>
                     }

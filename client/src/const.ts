@@ -15,7 +15,7 @@ const AppRoute = {
 const AuthorizationStatus = {
     Auth: 'AUTH',
     NoAuth: 'NO_AUTH',
-    unknown: 'UNKNOWN'
+    Unknown: 'UNKNOWN'
 } as const;
 
 const CITIES_LOCATION: CityOffer[] = [
@@ -69,6 +69,12 @@ const CITIES_LOCATION: CityOffer[] = [
   },
 ];
 
+const APIRoute = {
+  Offers: '/offers',
+  Login: '/login',
+  Logout: '/logout'
+};
+
 const SortOffersType = {
   Popular: 'Popural',
   PriceToHigh: 'Price: low to high',
@@ -76,4 +82,14 @@ const SortOffersType = {
   TopRated: 'Top rated first'
 };
 
-export { Setting, AppRoute, AuthorizationStatus, CITIES_LOCATION, SortOffersType };
+const TIMEOUT_SHOW_ERROR = 2000;
+
+export {
+  Setting,
+  AppRoute,
+  APIRoute,
+  AuthorizationStatus,
+  CITIES_LOCATION,
+  SortOffersType,
+  TIMEOUT_SHOW_ERROR
+};
