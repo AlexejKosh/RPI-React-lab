@@ -3,7 +3,10 @@ import { CitiesCardList } from "../../components/cities-card-list/cities-card-li
 import { Map } from '../../components/map/map';
 import { Logo } from '../../components/Logo/logo';
 import { useState } from 'react';
-import { useAppSelector } from '../../hooks';
+import { useAppSelector, useAppDispatch } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/selectors';
+import { logoutAction } from '../../store/api-action';
+import { AuthorizationStatus } from '../../const';
 import { getOffersByCity, sortOffersByType } from '../../utils/utils';
 import { CitiesList } from "../../components/cities-list/cities-list";
 import type { SortOffer } from "../../types/sort";
@@ -13,6 +16,9 @@ function MainPage({favoritesCount}: {favoritesCount: number}): React.JSX.Element
     const [activeSort, setActiveSort] = useState<SortOffer>('Popular');
     const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
     
+    const dispatch = useAppDispatch();
+    const authorizationStatus = useAppSelector(getAuthorizationStatus);
+    const user = useAppSelector((state) => state.user);
     const selectedCity = useAppSelector((state) => state.city);
     const offersFromStore = useAppSelector((state) => state.offers);
     const selectedCityOffers = getOffersByCity(selectedCity?.name ?? '', offersFromStore);
@@ -37,19 +43,36 @@ function MainPage({favoritesCount}: {favoritesCount: number}): React.JSX.Element
                         </div>
                         <nav className="header__nav">
                             <ul className="header__nav-list">
-                                <li className="header__nav-item user">
-                                      <a className="header__nav-link header__nav-link--profile" href="/favorites">
-                                        <div className="header__avatar-wrapper user__avatar-wrapper">
-                                        </div>
-                                        <span className="header__user-name user__name">Myemail@gmail.com</span>
-                                        <span className="header__favorite-count">{ favoritesCount }</span>
-                                    </a>
-                                </li>
-                                <li className="header__nav-item">
-                                    <a className="header__nav-link" href="/login">
-                                        <span className="header__signout">Sign out</span>
-                                    </a>
-                                </li>
+                                {authorizationStatus === AuthorizationStatus.Auth ? (
+                                    <>
+                                        <li className="header__nav-item user">
+                                            <a className="header__nav-link header__nav-link--profile" href="/favorites">
+                                                <div
+                                                    className="header__avatar-wrapper user__avatar-wrapper"
+                                                    style={{ backgroundImage: `url(${ user?.avatarUrl ?? '/img/avatar.svg' })` }}
+                                                >
+                                                </div>
+                                                <span className="header__user-name user__name">{ user?.username }</span>
+                                                <span className="header__favorite-count">{ favoritesCount }</span>
+                                            </a>
+                                        </li>
+                                        <li className="header__nav-item">
+                                            <a
+                                                className="header__nav-link"
+                                                href="/login"
+                                                onClick={() => dispatch(logoutAction())}
+                                            >
+                                                <span className="header__signout">Sign out</span>
+                                            </a>
+                                        </li>
+                                    </>
+                                ) : (
+                                    <li className="header__nav-item">
+                                        <a className="header__nav-link" href="/login">
+                                            <span className="header__signout">Sign in</span>
+                                        </a>
+                                    </li>
+                                )}
                             </ul>
                         </nav>
                     </div>

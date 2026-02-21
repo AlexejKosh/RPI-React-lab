@@ -14,7 +14,7 @@ function Review({ review }: ReviewProps): React.JSX.Element {
   return (
     <li className="reviews__item">
       <div className="reviews__user user">
-        <div className="reviews__avatar-wrapper user__avatar-wrapper">
+        <div className="reviews__avatar-wrapper user__avatar-wrapper" style={{ backgroundImage: review.user.avatarUrl ? 'none' : undefined }}>
           <img className="reviews__avatar user__avatar" src={review.user.avatarUrl} width="54" height="54" alt="Reviews avatar" />
         </div>
         <span className="reviews__user-name">

@@ -10,6 +10,8 @@ function displayType(type: string) {
 }
 
 function FavoriteCard({ offer }: FavoriteCardProps) {
+  const imgSrc = (offer as any).images && (offer as any).images.length ? (offer as any).images[0] : ((offer as any).previewImage ?? '/img/no-image.png');
+
   return (
     <article className="favorites__card place-card">
       {offer.isPremium && (
@@ -19,7 +21,7 @@ function FavoriteCard({ offer }: FavoriteCardProps) {
       )}
       <div className="favorites__image-wrapper place-card__image-wrapper">
         <Link to={`/offer/${offer.id}`}>
-          <img className="place-card__image" src={offer.images[0]} width="150" height="110" alt="Place image" />
+          <img className="place-card__image" src={imgSrc} width="150" height="110" alt="Place image" />
         </Link>
       </div>
       <div className="favorites__card-info place-card__info">

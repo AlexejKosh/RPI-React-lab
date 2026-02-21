@@ -14,6 +14,18 @@ const setError = createAction('setError', (error: string | null) => ({
     payload: error
 }));
 
+const setUser = createAction('user/setUser', (user: unknown | null) => ({
+    payload: user
+}));
+
+const setCurrentOffer = createAction('offers/setCurrentOffer', (offer: unknown | null) => ({
+    payload: offer
+}));
+
+const setOfferReviews = createAction('offers/setOfferReviews', (reviews: unknown[]) => ({
+    payload: reviews
+}));
+
 const requireAuthorization = createAction<AuthorizationStatusType>('user/requireAuthorization');
 
 const setOffersDataLoadingStatus = createAction<boolean>('data/setOffersDataLoadingStatus');
@@ -23,5 +35,8 @@ export {
     offersCityList,
     requireAuthorization,
     setError,
-    setOffersDataLoadingStatus
+    setUser,
+    setOffersDataLoadingStatus,
+    setCurrentOffer,
+    setOfferReviews
 };

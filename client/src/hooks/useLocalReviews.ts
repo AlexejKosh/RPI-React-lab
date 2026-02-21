@@ -1,8 +1,12 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import type { Review } from "../types/review";
 
 export const useLocalReviews = (initialReviews: Review[]) => {
   const [localReviews, setLocalReviews] = useState<Review[]>(initialReviews);
+
+  useEffect(() => {
+    setLocalReviews(initialReviews || []);
+  }, [initialReviews]);
 
   const addReview = (comment: string, rating: number) => {
     const newReview: Review = {

@@ -72,7 +72,9 @@ const CITIES_LOCATION: CityOffer[] = [
 const APIRoute = {
   Offers: '/offers',
   Login: '/login',
-  Logout: '/logout'
+  Logout: '/logout',
+  Comments: '/comments',
+  Favorite: '/favorite'
 };
 
 const SortOffersType = {

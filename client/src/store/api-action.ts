@@ -1,5 +1,7 @@
 import {createAsyncThunk} from '@reduxjs/toolkit';
-import {offersCityList, requireAuthorization, setError, setOffersDataLoadingStatus} from './action';
+import {offersCityList, requireAuthorization, setError, setOffersDataLoadingStatus, setUser, setCurrentOffer, setOfferReviews} from './action';
+import { getToken } from '../services/token';
+import { api as apiInstance } from './index';
 import {saveToken, dropToken} from '../services/token';
 import {APIRoute, AuthorizationStatus, TIMEOUT_SHOW_ERROR } from '../const';
 import type { AxiosInstance } from 'axios';
@@ -28,11 +30,31 @@ const checkAuthAction = createAsyncThunk<void, undefined, {
 }> (
     'user/checkAuth',
     async (_arg, {dispatch, extra: api}) => {
+        const token = getToken();
+        if (!token) {
+            dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+            dispatch(setUser(null));
+            return;
+        }
+
         try {
-            await api.get(APIRoute.Login);
+            const { data } = await api.get(APIRoute.Login);
+            if (data && data.token) {
+                saveToken(data.token);
+            }
+            const mappedUser = {
+                ...data,
+                avatarUrl: data.avatar ?? data.avatarUrl ?? data.avaterUrl ?? null
+            };
+            const base = apiInstance?.defaults?.baseURL ?? '';
+            if (mappedUser.avatarUrl && mappedUser.avatarUrl.startsWith('/')) {
+                mappedUser.avatarUrl = `${base}${mappedUser.avatarUrl}`;
+            }
             dispatch(requireAuthorization(AuthorizationStatus.Auth));
+            dispatch(setUser(mappedUser));
         } catch {
             dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
+            dispatch(setUser(null));
         }
     }
 );
@@ -48,6 +70,7 @@ const loginAction = createAsyncThunk<
             const { data } = await api.post<UserData>(APIRoute.Login, { email, password });
             saveToken(data.token);
             dispatch(requireAuthorization(AuthorizationStatus.Auth));
+            dispatch(checkAuthAction());
             return data;
         } catch (err) {
             dropToken();
@@ -85,4 +108,53 @@ const clearErrorAction = createAsyncThunk<void, undefined, {
     }
 );
 
-export { fetchOffersAction, checkAuthAction, loginAction, logoutAction, clearErrorAction };
+const fetchOfferAction = createAsyncThunk<void, string, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+    'data/fetchOffer',
+    async (offerId, {dispatch, extra: api}) => {
+        const { data } = await api.get(`${APIRoute.Offers}/${offerId}`);
+        dispatch(setCurrentOffer(data));
+    }
+);
+
+const fetchOfferReviewsAction = createAsyncThunk<void, string, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+    'data/fetchOfferReviews',
+    async (offerId, {dispatch, extra: api}) => {
+        const { data } = await api.get(`${APIRoute.Comments}/${offerId}`);
+        dispatch(setOfferReviews(data));
+    }
+);
+
+const toggleFavoriteAction = createAsyncThunk<void, { offerId: string; status: number }, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+    'data/toggleFavorite',
+    async ({ offerId, status }, { dispatch, extra: api }) => {
+        await api.post(`${APIRoute.Favorite}/${offerId}/${status}`);
+        dispatch(fetchOffersAction());
+        dispatch(fetchOfferAction(offerId));
+    }
+);
+
+const postReviewAction = createAsyncThunk<void, { offerId: string; comment: string; rating: number }, {
+    dispatch: AppDispatch;
+    state: State;
+    extra: AxiosInstance;
+}>(
+    'data/postReview',
+    async ({ offerId, comment, rating }, { dispatch, extra: api }) => {
+        await api.post(`${APIRoute.Comments}/${offerId}`, { comment, rating });
+        dispatch(fetchOfferReviewsAction(offerId));
+    }
+);
+
+export { fetchOffersAction, checkAuthAction, loginAction, logoutAction, clearErrorAction, fetchOfferAction, fetchOfferReviewsAction, toggleFavoriteAction, postReviewAction };
