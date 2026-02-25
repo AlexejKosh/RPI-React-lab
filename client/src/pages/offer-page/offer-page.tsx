@@ -4,19 +4,17 @@ import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
 import { Map } from '../../components/map/map';
 import { CitiesCardList } from '../../components/cities-card-list/cities-card-list';
-import type { FullOffer, OffersList } from "../../types/offer";
-import type { Review } from "../../types/review";
 import { NotFoundPage } from "../not-found-page/not-found-page";
 import { useState, useEffect } from "react";
 import { LoadingPage } from '../../components/loading-page/loading-page';
 import { getNearbyOffers, buildOffersList } from "../../utils/nearby";
-import { useLocalReviews } from "../../hooks/useLocalReviews";
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction, fetchOfferReviewsAction, toggleFavoriteAction, postReviewAction } from '../../store/api-action';
 import { getCurrentOffer, getOfferReviews } from '../../store/selectors';
 import { getAuthorizationStatus } from '../../store/selectors';
 import { logoutAction } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
+import type { OffersList } from "../../types/offer";
 
 function OfferPage() {
     const params = useParams();
@@ -40,7 +38,6 @@ function OfferPage() {
       ]).finally(() => setIsLoading(false));
     }, [id, dispatch]);
 
-    const { localReviews } = useLocalReviews(reviews);
     const handleAddReview = (comment: string, rating: number) => {
       if (!id) return;
       dispatch(postReviewAction({ offerId: id, comment, rating }));
@@ -197,7 +194,7 @@ function OfferPage() {
                 </div>
               </div>
               <section className="offer__reviews reviews">
-                <ReviewsList reviews={localReviews} />
+                <ReviewsList reviews={reviews} />
                 {authorizationStatus === AuthorizationStatus.Auth && (
                   <ReviewForm onAddReview={handleAddReview} />
                 )}

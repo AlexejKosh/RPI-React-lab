@@ -1,4 +1,5 @@
-import { useAppSelector } from '../../hooks'; import './error-message.css';
+import { useAppSelector } from '../../hooks';
+import './error-message.css';
 import type { JSX } from 'react';
 
 function ErrorMessage(): JSX.Element | null {

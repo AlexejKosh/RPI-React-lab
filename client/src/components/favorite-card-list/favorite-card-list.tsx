@@ -1,12 +1,12 @@
-import type { FullOffer } from '../../types/offer';
+import type { OffersList } from '../../types/offer';
 import { FavoriteCard } from '../favorite-card/favorite-card';
 
 type FavoriteCardListProps = {
-  favorites: FullOffer[];
+  favorites: OffersList[];
 };
 
 function FavoriteCardList({ favorites }: FavoriteCardListProps) {
-  const grouped: Record<string, FullOffer[]> = {};
+  const grouped: Record<string, OffersList[]> = {};
   favorites.forEach((f) => {
     const name = f.city.name;
     if (!grouped[name]) {

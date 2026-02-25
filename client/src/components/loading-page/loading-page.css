@@ -1,0 +1,24 @@
+/* Styles for LoadingPage component */
+.loading-overlay {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.8);
+  z-index: 1000;
+}
+
+.loading-inner {
+  text-align: center;
+}
+
+.loading-spinner {
+  display: block;
+}
+
+.loading-text {
+  margin-top: 8px;
+  color: #333;
+  font-size: 14px;
+}

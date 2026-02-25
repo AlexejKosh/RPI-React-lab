@@ -1,11 +1,11 @@
 import { Logo } from "../../components/Logo/logo";
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { logoutAction } from '../../store/api-action';
-import type { FullOffer } from '../../types/offer';
+import type { OffersList } from '../../types/offer';
 import { FavoriteCardList } from '../../components/favorite-card-list/favorite-card-list';
 
 type FavoritesPageProps = {
-  favorites: FullOffer[];
+  favorites: OffersList[];
   favoritesCount: number;
 }
 
@@ -27,7 +27,7 @@ function FavoritesPage({ favorites, favoritesCount }: FavoritesPageProps) {
                   <a className="header__nav-link header__nav-link--profile" href="/favorites">
                     <div
                       className="header__avatar-wrapper user__avatar-wrapper"
-                      style={{ backgroundImage: `url(${user?.avatarUrl ?? user?.avatar ?? '/img/avatar.svg'})` }}
+                      style={{ backgroundImage: `url(${user.avatarUrl})` }}
                     >
                     </div>
                     <span className="header__user-name user__name">{ user?.username }</span>

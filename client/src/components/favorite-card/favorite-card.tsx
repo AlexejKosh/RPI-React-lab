@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
-import type { FullOffer } from '../../types/offer';
+import type { OffersList } from '../../types/offer';
 
 type FavoriteCardProps = {
-  offer: FullOffer;
+  offer: OffersList;
 };
 
 function displayType(type: string) {
@@ -10,7 +10,7 @@ function displayType(type: string) {
 }
 
 function FavoriteCard({ offer }: FavoriteCardProps) {
-  const imgSrc = (offer as any).images && (offer as any).images.length ? (offer as any).images[0] : ((offer as any).previewImage ?? '/img/no-image.png');
+  const imgSrc = offer.previewImage;
 
   return (
     <article className="favorites__card place-card">
