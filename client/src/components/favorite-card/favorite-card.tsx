@@ -1,5 +1,9 @@
 import { Link } from 'react-router-dom';
 import type { OffersList } from '../../types/offer';
+import { useAppDispatch, useAppSelector } from '../../hooks';
+import { getAuthorizationStatus } from '../../store/selectors';
+import { AuthorizationStatus } from '../../const';
+import { toggleFavoriteAction } from '../../store/api-action';
 
 type FavoriteCardProps = {
   offer: OffersList;
@@ -11,6 +15,7 @@ function displayType(type: string) {
 
 function FavoriteCard({ offer }: FavoriteCardProps) {
   const imgSrc = offer.previewImage;
+  const dispatch = useAppDispatch();
 
   return (
     <article className="favorites__card place-card">
@@ -30,12 +35,18 @@ function FavoriteCard({ offer }: FavoriteCardProps) {
             <b className="place-card__price-value">&euro;{offer.price}</b>
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
-          <button className={`place-card__bookmark-button ${offer.isFavorite ? 'place-card__bookmark-button--active' : ''} button`} type="button">
-            <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use href="#icon-bookmark"></use>
-            </svg>
-            <span className="visually-hidden">{offer.isFavorite ? 'In bookmarks' : 'To bookmarks'}</span>
-          </button>
+          {useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth && (
+            <button
+              className="place-card__bookmark-button button"
+              type="button"
+              onClick={() => dispatch(toggleFavoriteAction({ offerId: offer.id, status: offer.isFavorite ? 0 : 1 }))}
+              >
+              <svg className="place-card__bookmark-icon" width="18" height="19">
+                <use href="/img/sprite.svg#icon-bookmark" style={offer.isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>
+              </svg>
+              <span className="visually-hidden">To bookmarks</span>
+            </button>
+          )}
         </div>
         <div className="place-card__rating rating">
           <div className="place-card__stars rating__stars">

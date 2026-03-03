@@ -24,7 +24,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 48.856663,
       longitude: 2.351556,
-      zoom: 10
+      zoom: 12
     }
   },
   {
@@ -32,7 +32,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 50.9375,
       longitude: 6.9603,
-      zoom: 10
+      zoom: 12
     }
   },
   {
@@ -40,7 +40,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 50.8503,
       longitude: 4.3517,
-      zoom: 10
+      zoom: 12
     }
   },
   {
@@ -48,7 +48,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 52.37454,
       longitude: 4.897976,
-      zoom: 10
+      zoom: 12
     }
   },
   {
@@ -56,7 +56,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 53.5511,
       longitude: 9.9937,
-      zoom: 10
+      zoom: 12
     }
   },
   {
@@ -64,7 +64,7 @@ const CITIES_LOCATION: CityOffer[] = [
     location: {
       latitude: 51.2277,
       longitude: 6.7735,
-      zoom: 10
+      zoom: 12
     }
   },
 ];
@@ -78,10 +78,9 @@ const APIRoute = {
 };
 
 const SortOffersType = {
-  Popular: 'Popural',
+  Popular: 'Popular',
   PriceToHigh: 'Price: low to high',
-  PriceToLow: 'Price: high to low',
-  TopRated: 'Top rated first'
+  PriceToLow: 'Price: high to low'
 };
 
 const TIMEOUT_SHOW_ERROR = 2000;

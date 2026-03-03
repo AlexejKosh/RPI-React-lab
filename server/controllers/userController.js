@@ -65,7 +65,7 @@ const checkAuth = (req, res) => {
             avatar: user.avatar
         },
         process.env.JWT_SECRET,
-        { expiresIn: '24h' }
+        { expiresIn: '168h' }
     );
     return res.json({
         id: user.id,

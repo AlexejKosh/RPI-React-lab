@@ -3,6 +3,7 @@ import { CitiesCardList } from "../../components/cities-card-list/cities-card-li
 import { Map } from '../../components/map/map';
 import { Logo } from '../../components/Logo/logo';
 import { useState } from 'react';
+import { SortOffersType } from '../../const';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/selectors';
 import { logoutAction } from '../../store/api-action';
@@ -13,7 +14,7 @@ import type { SortOffer } from "../../types/sort";
 import { SortOptions } from "../../components/sort-options/sort-options";
 
 function MainPage({favoritesCount}: {favoritesCount: number}): React.JSX.Element {
-    const [activeSort, setActiveSort] = useState<SortOffer>('Popular');
+    const [activeSort, setActiveSort] = useState<SortOffer>(() => (localStorage.getItem('activeSort') as SortOffer) ?? SortOffersType.Popular);
     const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
     
     const dispatch = useAppDispatch();
@@ -91,7 +92,7 @@ function MainPage({favoritesCount}: {favoritesCount: number}): React.JSX.Element
                         <section className="cities__places places">
                             <h2 className="visually-hidden">Places</h2>
                             <b className="places__found">{ rentalOffersCount } places to stay in { selectedCity?.name }</b>
-                            <SortOptions activeSorting={ activeSort } onChange={ (newSorting) => setActiveSort(newSorting) } />
+                            <SortOptions activeSorting={ activeSort } onChange={ (newSorting) => { setActiveSort(newSorting); localStorage.setItem('activeSort', newSorting); } } />
                             <CitiesCardList offersList={ sortedOffers } onHover={ handleListItemHover } />
                         </section>
                         <div className="cities__right-section">

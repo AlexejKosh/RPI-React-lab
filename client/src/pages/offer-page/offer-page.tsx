@@ -54,7 +54,7 @@ function OfferPage() {
     const nearbyOffers = getNearbyOffers(offers, mainOffer);
     const nearbyOffersList: OffersList[] = buildOffersList(nearbyOffers);
 
-    const displayType = (type: string) => type === 'room' ? 'Private room' : type[0].toUpperCase() + type.slice(1);
+    const displayType = (type: string) => type[0].toUpperCase() + type.slice(1);
 
     return(
         <div className="page">
