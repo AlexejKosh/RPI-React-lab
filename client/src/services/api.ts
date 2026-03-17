@@ -6,11 +6,8 @@ import type {
     AxiosError
 } from 'axios';
 import { StatusCodes } from 'http-status-codes';
-import { getToken, dropToken } from './token';
+import { getToken } from './token';
 import { processErrorHandle } from './process-error-handle';
-import { store } from '../store';
-import { requireAuthorization, setUser } from '../store/action';
-import { AuthorizationStatus } from '../const';
 
 type DetailMessageType = {
     type: string;
@@ -51,19 +48,9 @@ export const createAPI = (): AxiosInstance => {
     api.interceptors.response.use(
         (response) => response,
         (error: AxiosError<DetailMessageType>) => {
-            if (error.response) {
-                const status = error.response.status;
-                if (status === StatusCodes.UNAUTHORIZED) {
-                    dropToken();
-                    store.dispatch(requireAuthorization(AuthorizationStatus.NoAuth));
-                    store.dispatch(setUser(null));
-                    return Promise.reject(error);
-                }
-
-                if (shouldDisplayError(error.response)) {
-                    const detailMessage = (error.response.data);
-                    processErrorHandle(detailMessage.message);
-                }
+            if (error.response && shouldDisplayError(error.response)) {
+                const detailMessage = (error.response.data);
+                processErrorHandle(detailMessage.message);
             }
             throw error;
         }

@@ -1,0 +1,144 @@
+openapi: 3.0.0
+info:
+  title: Housing Rental API
+  version: 1.0.0
+  description: API для работы с предложениями, отзывами и пользователями
+servers:
+  - url: http://localhost:5000
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+tags:
+  - name: Users
+  - name: Offers
+  - name: Reviews
+paths:
+  /login:
+    post:
+      summary: Авторизация пользователя
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email:
+                  type: string
+                password:
+                  type: string
+            example:
+              email: Curtis30@gmail.com
+              password: KXzkBEQ0wY
+      responses:
+        "200":
+          description: Успешный логин, возвращает токен
+  /offer:
+    post:
+      summary: Создание нового предложения
+      description: >
+        Создает новое предложение (offer). Принимает данные в формате
+        multipart/form-data. Поле previewImage обязательно. Поле photos — массив
+        из 6 файлов.
+      tags:
+        - Offers
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - title
+                - description
+                - city
+                - price
+                - rooms
+                - guests
+                - previewImage
+              properties:
+                title:
+                  type: string
+                description:
+                  type: string
+                publishDate:
+                  type: string
+                  format: date
+                city:
+                  type: string
+                isPremium:
+                  type: boolean
+                isFavorite:
+                  type: boolean
+                rating:
+                  type: number
+                type:
+                  type: string
+                rooms:
+                  type: integer
+                guests:
+                  type: integer
+                price:
+                  type: number
+                features:
+                  type: string
+                  description: >
+                    JSON-строка массива из значений 'Breakfast', 'Air
+                    conditioning', 'Laptop friendly workspace', 'Baby seat',
+                    'Washer', 'Towels', 'Fridge'
+                commentsCount:
+                  type: integer
+                latitude:
+                  type: number
+                longitude:
+                  type: number
+                userId:
+                  type: integer
+                previewImage:
+                  type: string
+                  format: binary
+                  description: Основное изображение (обязательно)
+                photos:
+                  type: array
+                  maxItems: 6
+                  items:
+                    type: string
+                    format: binary
+                  description: Дополнительные изображения
+            examples:
+              generated:
+                summary: Сгенерированный пример (только текстовые поля)
+                value:
+                  title: absum auctus coepi
+                  description: Sortitus acer una adinventitias ulciscor. Arbustum adiuvo cohibeo
+                    aegre appositus adficio benigne. Nobis studio talus laborum
+                    vulticulus tibi coniecto excepturi.
+                  publishDate: 2026-03-17
+                  city: Fort Athena
+                  isPremium: true
+                  isFavorite: true
+                  rating: 4.7
+                  type: room
+                  rooms: 3
+                  guests: 5
+                  price: 437
+                  features: '["Breakfast","Air conditioning","Laptop friendly workspace","Baby
+                    seat","Washer","Towels","Fridge"]'
+                  commentsCount: 41
+                  latitude: -15.6574
+                  longitude: 13.9782
+                  userId: 10
+      responses:
+        "201":
+          description: Предложение успешно создано
+        "400":
+          description: Ошибка валидации данных
+        "401":
+          description: Не авторизован

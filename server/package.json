@@ -4,7 +4,8 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "swagger:gen-examples": "node scripts/gen-swagger-examples.js"
   },
   "keywords": [],
   "author": "",
@@ -20,9 +21,13 @@
     "pg": "^8.18.0",
     "pg-hstore": "^2.3.4",
     "sequelize": "^6.37.7",
-    "uuid": "^13.0.0"
+    "swagger-ui-express": "^5.0.1",
+    "uuid": "^13.0.0",
+    "yamljs": "^0.3.0"
   },
   "devDependencies": {
-    "nodemon": "^3.1.11"
+    "@faker-js/faker": "^10.3.0",
+    "nodemon": "^3.1.11",
+    "yaml": "^2.8.2"
   }
 }

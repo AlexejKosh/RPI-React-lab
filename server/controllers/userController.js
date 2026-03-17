@@ -50,7 +50,7 @@ const login = async (req, res, next) => {
         const token = jwt.sign({ id: user.id }, process.env.JWT_SECRET, { expiresIn: '24h' });
         res.json({ token });
     } catch (error) {
-        next(ApiError.internal('Ошибка авторизации'));
+        next(ApiError.internal(`Ошибка авторизации: ${error.message}`));
     }
 };
 

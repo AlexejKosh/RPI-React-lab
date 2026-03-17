@@ -52,7 +52,7 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, o
                         <button
                             className="place-card__bookmark-button button"
                             type="button"
-                            onClick={() => {dispatch(toggleFavoriteAction({ offerId: id, status: isFavorite ? 0 : 1 })); console.log(id);}}
+                            onClick={() => {dispatch(toggleFavoriteAction({ offerId: id, status: isFavorite ? 0 : 1 }));}}
                         >
                             <svg className="place-card__bookmark-icon" width="18" height="19">
                                 <use href="/img/sprite.svg#icon-bookmark" style={isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>

@@ -20,7 +20,7 @@ const addReview = async (req, res, next) => {
         res.status(201).json(review);
     } catch (error) {
         console.error(error);
-        next(ApiError.badRequest('Ошибка при добавлении комментария'));
+        next(ApiError.badRequest(`Ошибка при добавлении комментария ${error.message}`));
     }
 };
 
