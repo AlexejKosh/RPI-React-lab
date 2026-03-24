@@ -33,12 +33,23 @@ paths:
                 password:
                   type: string
             example:
-              email: Curtis30@gmail.com
-              password: KXzkBEQ0wY
+              email: Godfrey.Pfannerstill14@gmail.com
+              password: sla4yYGbh5
       responses:
         "200":
           description: Успешный логин, возвращает токен
-  /offer:
+    get:
+      summary: Проверка авторизации пользователя
+      tags:
+        - Users
+      security:
+        - bearerAuth: []
+      responses:
+        "200":
+          description: Данные пользователя и новый токен
+        "401":
+          description: Не авторизован
+  /offers:
     post:
       summary: Создание нового предложения
       description: >
@@ -66,41 +77,60 @@ paths:
               properties:
                 title:
                   type: string
+                  example: velum excepturi abduco
                 description:
                   type: string
+                  example: Amoveo debilito derelinquo talis asporto derelinquo absum demum
+                    vindico. Undique utilis delectatio solutio tremo sperno
+                    dolores depulso. Hic laudantium thema aestus sub vito.
                 publishDate:
                   type: string
                   format: date
+                  example: 2026-03-23
                 city:
                   type: string
+                  example: San Antonio
                 isPremium:
                   type: boolean
+                  example: false
                 isFavorite:
                   type: boolean
+                  example: true
                 rating:
                   type: number
+                  example: 2.8
                 type:
                   type: string
+                  example: house
                 rooms:
                   type: integer
+                  example: 5
                 guests:
                   type: integer
+                  example: 3
                 price:
                   type: number
+                  example: 70
                 features:
                   type: string
                   description: >
                     JSON-строка массива из значений 'Breakfast', 'Air
                     conditioning', 'Laptop friendly workspace', 'Baby seat',
                     'Washer', 'Towels', 'Fridge'
+                  example: '["Breakfast","Air conditioning","Laptop friendly workspace","Baby
+                    seat","Washer","Towels","Fridge"]'
                 commentsCount:
                   type: integer
+                  example: 35
                 latitude:
                   type: number
+                  example: -30.6333
                 longitude:
                   type: number
+                  example: -43.5147
                 userId:
                   type: integer
+                  example: 2
                 previewImage:
                   type: string
                   format: binary
@@ -112,29 +142,6 @@ paths:
                     type: string
                     format: binary
                   description: Дополнительные изображения
-            examples:
-              generated:
-                summary: Сгенерированный пример (только текстовые поля)
-                value:
-                  title: absum auctus coepi
-                  description: Sortitus acer una adinventitias ulciscor. Arbustum adiuvo cohibeo
-                    aegre appositus adficio benigne. Nobis studio talus laborum
-                    vulticulus tibi coniecto excepturi.
-                  publishDate: 2026-03-17
-                  city: Fort Athena
-                  isPremium: true
-                  isFavorite: true
-                  rating: 4.7
-                  type: room
-                  rooms: 3
-                  guests: 5
-                  price: 437
-                  features: '["Breakfast","Air conditioning","Laptop friendly workspace","Baby
-                    seat","Washer","Towels","Fridge"]'
-                  commentsCount: 41
-                  latitude: -15.6574
-                  longitude: 13.9782
-                  userId: 10
       responses:
         "201":
           description: Предложение успешно создано
@@ -142,3 +149,165 @@ paths:
           description: Ошибка валидации данных
         "401":
           description: Не авторизован
+    get:
+      summary: Получить список предложений
+      tags:
+        - Offers
+      responses:
+        "200":
+          description: Список предложений
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+  /offers/{id}:
+    get:
+      summary: Получить полную информацию о предложении
+      tags:
+        - Offers
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Полное предложение
+          content:
+            application/json:
+              schema:
+                type: object
+        "400":
+          description: Предложение не найдено
+  /favorite/{offerId}/{status}:
+    post:
+      summary: Добавить или удалить из избранного
+      tags:
+        - Offers
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: integer
+          example: 98
+        - name: status
+          in: path
+          required: true
+          schema:
+            type: string
+            enum:
+              - "0"
+              - "1"
+          example: "1"
+      responses:
+        "200":
+          description: Статус обновлён
+        "401":
+          description: Не авторизован
+        "404":
+          description: Предложение не найдено
+  /comments/{offerId}:
+    get:
+      summary: Получить комментарии к предложению
+      tags:
+        - Reviews
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Список комментариев
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  type: object
+    post:
+      summary: Добавить комментарий
+      tags:
+        - Reviews
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: offerId
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - comment
+                - rating
+              properties:
+                comment:
+                  type: string
+                  example: Quidem arca atrocitas adhaero doloremque cupio.
+                rating:
+                  type: number
+                  example: 4
+      responses:
+        "201":
+          description: Комментарий создан
+        "400":
+          description: Ошибка данных
+        "401":
+          description: Не авторизован
+  /register:
+    post:
+      summary: Регистрация пользователя
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              required:
+                - email
+                - password
+                - avatar
+              properties:
+                email:
+                  type: string
+                  example: Archie_Hagenes99@gmail.com
+                password:
+                  type: string
+                  example: Y4JSH2FgYyflXsY
+                username:
+                  type: string
+                  example: Edgar
+                userType:
+                  type: string
+                  example: pro
+                avatar:
+                  type: string
+                  format: binary
+      responses:
+        "200":
+          description: Пользователь зарегистрирован
+        "400":
+          description: Ошибка регистрации
+  /logout:
+    delete:
+      summary: Выход из системы
+      tags:
+        - Users
+      responses:
+        "204":
+          description: Успешный выход
