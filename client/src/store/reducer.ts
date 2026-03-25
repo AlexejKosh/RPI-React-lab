@@ -2,18 +2,20 @@ import { createReducer} from "@reduxjs/toolkit";
 import { getCity } from '../utils/utils';
 import { changeCity, offersCityList, requireAuthorization, setError, setOffersDataLoadingStatus, setCurrentOffer, setOfferReviews, setUser } from './action';
 import { AuthorizationStatus, CITIES_LOCATION } from '../const';
-import type { CityOffer, OffersList } from "../types/offer";
+import type { CityOffer, FullOffer, OffersList } from "../types/offer";
 import type { AuthorizationStatusType } from "../types/authorization-status";
+import type { Review } from '../types/review';
+import type { UserData } from '../types/user-data';
 
 const defaultCity = getCity('Amsterdam', CITIES_LOCATION);
 
 export type InitialState = {
     city: CityOffer | undefined;
     offers: OffersList[];
-    currentOffer: any | null;
-    offerReviews: any[];
+    currentOffer: FullOffer | null;
+    offerReviews: Review[];
     authorizationStatus: AuthorizationStatusType;
-    user: any | null;
+    user: UserData | null;
     error: string | null;
     isOffersDataLoading: boolean;
 }

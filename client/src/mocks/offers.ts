@@ -52,7 +52,7 @@ const offers: FullOffer[] = [
         'isFavorite': true,
         'rating': 4.9,
         'bedrooms': 2,
-        'maxAdults': 3
+        'guests': 3
     },
     {
         'id': 'c91d8f1a-9d21-4d5b-83d9-21ab72f98211',
@@ -95,7 +95,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.3,
         'bedrooms': 1,
-        'maxAdults': 1
+        'guests': 1
     },
     {
         'id': 'fa7b2b5b-23a4-4e8c-9db6-07cb41d431af',
@@ -140,7 +140,7 @@ const offers: FullOffer[] = [
         'isFavorite': true,
         'rating': 4.8,
         'bedrooms': 2,
-        'maxAdults': 4
+        'guests': 4
     },
     {
         'id': 'd45ebb01-c9f3-4e1f-9fea-fd01c2c987d2',
@@ -187,7 +187,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.7,
         'bedrooms': 3,
-        'maxAdults': 5
+        'guests': 5
     },
     {
         id: 'a12f3c8e-4d92-4c9e-b01e-1b9a8a7c1234',
@@ -234,7 +234,7 @@ const offers: FullOffer[] = [
         isFavorite: false,
         rating: 4.7,
         bedrooms: 1,
-        maxAdults: 2
+        guests: 2
     },
     {
         id: 'b87d1e55-9c45-4d30-8d2e-6e8c19f56789',
@@ -275,7 +275,7 @@ const offers: FullOffer[] = [
         isFavorite: false,
         rating: 4.1,
         bedrooms: 1,
-        maxAdults: 1
+        guests: 1
     },
     {
         id: 'c44b9e12-72c9-4e61-9c7f-81d4b7e43210',
@@ -319,7 +319,7 @@ const offers: FullOffer[] = [
         isFavorite: true,
         rating: 4.6,
         bedrooms: 2,
-        maxAdults: 4
+        guests: 4
     },
     {
         id: 'd998fa22-11a4-4d63-9f0b-92b7c9a65432',
@@ -365,7 +365,7 @@ const offers: FullOffer[] = [
         isFavorite: true,
         rating: 5.0,
         bedrooms: 3,
-        maxAdults: 6
+        guests: 6
     },
     {
         'id': 'a12f3c9e-1b44-4e6d-8b21-92e8c1b0a101',
@@ -409,7 +409,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.7,
         'bedrooms': 2,
-        'maxAdults': 4
+        'guests': 4
     },
     {
         'id': 'b44d9a22-7e51-4c33-9f12-1f7a92debb55',
@@ -452,7 +452,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.2,
         'bedrooms': 1,
-        'maxAdults': 1
+        'guests': 1
     },
     {
         'id': 'e88b2c10-9a3f-4f66-8d71-3a9b5e4c7722',
@@ -497,7 +497,7 @@ const offers: FullOffer[] = [
         'isFavorite': true,
         'rating': 4.9,
         'bedrooms': 1,
-        'maxAdults': 2
+        'guests': 2
     },
     {
         'id': 'a12f4c9e-8d31-4a6e-b2b7-1e8f6d8c9a01',
@@ -543,7 +543,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.7,
         'bedrooms': 1,
-        'maxAdults': 2
+        'guests': 2
     },
     {
         'id': 'b7e8d1c4-5a2f-4d9a-9f17-2c9b8e6f44ab',
@@ -585,7 +585,7 @@ const offers: FullOffer[] = [
         'isFavorite': false,
         'rating': 4.2,
         'bedrooms': 1,
-        'maxAdults': 1
+        'guests': 1
     },
     {
         'id': 'c3f9a8e2-71b4-4f9e-9f1b-6e9c3d0a5b9f',
@@ -633,7 +633,7 @@ const offers: FullOffer[] = [
         'isFavorite': true,
         'rating': 4.9,
         'bedrooms': 3,
-        'maxAdults': 5
+        'guests': 5
     }
 ];
 

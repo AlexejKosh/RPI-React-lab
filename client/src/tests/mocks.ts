@@ -35,7 +35,7 @@ export function makeFakeFullOffer(): FullOffer {
       isPro: faker.datatype.boolean(),
     },
     images: [faker.image.url(), faker.image.url()],
-    maxAdults: faker.number.int({ min: 1, max: 10 }),
+    guests: faker.number.int({ min: 1, max: 10 }),
   };
 }
 

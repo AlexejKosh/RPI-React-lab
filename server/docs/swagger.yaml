@@ -89,7 +89,7 @@ paths:
                   example: 2026-03-23
                 city:
                   type: string
-                  example: San Antonio
+                  example: Amsterdam
                 isPremium:
                   type: boolean
                   example: false
@@ -110,15 +110,14 @@ paths:
                   example: 3
                 price:
                   type: number
-                  example: 70
+                  example: 120
                 features:
                   type: string
                   description: >
                     JSON-строка массива из значений 'Breakfast', 'Air
                     conditioning', 'Laptop friendly workspace', 'Baby seat',
                     'Washer', 'Towels', 'Fridge'
-                  example: '["Breakfast","Air conditioning","Laptop friendly workspace","Baby
-                    seat","Washer","Towels","Fridge"]'
+                  example: '["Breakfast","Air conditioning","Laptop friendly workspace","Baby seat","Washer","Towels","Fridge"]'
                 commentsCount:
                   type: integer
                   example: 35

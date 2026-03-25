@@ -1,6 +1,8 @@
 import { createAction } from '@reduxjs/toolkit';
-import type { CityOffer, OffersList } from '../types/offer';
+import type { CityOffer, FullOffer, OffersList } from '../types/offer';
 import type { AuthorizationStatusType } from '../types/authorization-status';
+import type { UserData } from '../types/user-data';
+import type { Review } from '../types/review';
 
 const changeCity = createAction('offers/changeCity', (city: CityOffer) => ({
     payload: city
@@ -14,15 +16,15 @@ const setError = createAction('setError', (error: string | null) => ({
     payload: error
 }));
 
-const setUser = createAction('user/setUser', (user: unknown | null) => ({
+const setUser = createAction('user/setUser', (user: UserData | null) => ({
     payload: user
 }));
 
-const setCurrentOffer = createAction('offers/setCurrentOffer', (offer: unknown | null) => ({
+const setCurrentOffer = createAction('offers/setCurrentOffer', (offer: FullOffer | null) => ({
     payload: offer
 }));
 
-const setOfferReviews = createAction('offers/setOfferReviews', (reviews: unknown[]) => ({
+const setOfferReviews = createAction('offers/setOfferReviews', (reviews: Review[]) => ({
     payload: reviews
 }));
 

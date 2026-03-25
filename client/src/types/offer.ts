@@ -30,7 +30,7 @@ export type FullOffer = {
     goods: string[];
     host: HostOffer;
     images: string[];
-    maxAdults: number;
+    guests: number;
 };
 
 export type OffersList = {

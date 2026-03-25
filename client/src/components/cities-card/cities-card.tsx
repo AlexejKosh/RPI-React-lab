@@ -1,4 +1,4 @@
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { getAuthorizationStatus } from '../../store/selectors';
 import { AuthorizationStatus } from '../../const';
@@ -20,6 +20,7 @@ type CitiesCardProps = {
 function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, onHover, rootClass, isFavorite }: CitiesCardProps) {
     const articleClass = rootClass ?? 'cities__card place-card';
     const dispatch = useAppDispatch();
+    const navigate = useNavigate();
     return(
         <article
             className={articleClass}
@@ -38,7 +39,14 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, o
                         src={ previewImage } 
                         width="260" 
                         height="200" 
-                        alt="Place image" 
+                        alt="Place image"
+                        style={{
+                            width: '260px',
+                            height: '200px',
+                            objectFit: 'cover',
+                            objectPosition: 'center',
+                            display: 'block'
+                        }}
                     />
                 </Link>
             </div>
@@ -48,11 +56,23 @@ function CitiesCard({ id, title, type, price, previewImage, isPremium, rating, o
                         <b className="place-card__price-value">&euro;{ price }</b>
                         <span className="place-card__price-text">&#47;&nbsp;night</span>
                     </div>
-                    {useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth && (
+                    
+                    {useAppSelector(getAuthorizationStatus) === AuthorizationStatus.Auth ? (
                         <button
                             className="place-card__bookmark-button button"
                             type="button"
                             onClick={() => {dispatch(toggleFavoriteAction({ offerId: id, status: isFavorite ? 0 : 1 }));}}
+                        >
+                            <svg className="place-card__bookmark-icon" width="18" height="19">
+                                <use href="/img/sprite.svg#icon-bookmark" style={isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>
+                            </svg>
+                            <span className="visually-hidden">To bookmarks</span>
+                        </button>
+                    ) : (
+                        <button
+                            className="place-card__bookmark-button button"
+                            type="button"
+                            onClick={() => navigate('/favorites')}
                         >
                             <svg className="place-card__bookmark-icon" width="18" height="19">
                                 <use href="/img/sprite.svg#icon-bookmark" style={isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>

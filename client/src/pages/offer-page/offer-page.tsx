@@ -1,4 +1,4 @@
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { Header } from "../../components/header/header";
 import { ReviewForm } from "../../components/review-form/review-form";
 import { ReviewsList } from '../../components/reviews-list/reviews-list';
@@ -12,7 +12,6 @@ import { useAppDispatch, useAppSelector } from '../../hooks';
 import { fetchOfferAction, fetchOfferReviewsAction, toggleFavoriteAction, postReviewAction } from '../../store/api-action';
 import { getCurrentOffer, getOfferReviews } from '../../store/selectors';
 import { getAuthorizationStatus } from '../../store/selectors';
-import { logoutAction } from '../../store/api-action';
 import { AuthorizationStatus } from '../../const';
 import type { OffersList } from "../../types/offer";
 
@@ -23,9 +22,9 @@ function OfferPage() {
     const [hoveredOfferId, setHoveredOfferId] = useState<string>('');
     const offers = useAppSelector((state) => state.offers);
     const authorizationStatus = useAppSelector(getAuthorizationStatus);
-    const user = useAppSelector((state) => state.user);
     const mainOffer = useAppSelector(getCurrentOffer);
     const reviews = useAppSelector(getOfferReviews);
+    const navigate = useNavigate();
 
     const [isLoading, setIsLoading] = useState<boolean>(true);
 
@@ -82,11 +81,22 @@ function OfferPage() {
                 <h1 className="offer__name">
                   {mainOffer.title}
                 </h1>
-                {authorizationStatus === AuthorizationStatus.Auth && (
+                {authorizationStatus === AuthorizationStatus.Auth ? (
                   <button
                     className="offer__bookmark-button button"
                     type="button"
                     onClick={() => dispatch(toggleFavoriteAction({ offerId: mainOffer.id, status: mainOffer.isFavorite ? 0 : 1 }))}
+                  >
+                    <svg className="offer__bookmark-icon" width="31" height="33">
+                      <use xlinkHref="/img/sprite.svg#icon-bookmark" style={mainOffer.isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>
+                    </svg>
+                    <span className="visually-hidden">To bookmarks</span>
+                  </button>
+                ) : (
+                  <button
+                    className="offer__bookmark-button button"
+                    type="button"
+                    onClick={() => navigate('/login')}
                   >
                     <svg className="offer__bookmark-icon" width="31" height="33">
                       <use xlinkHref="/img/sprite.svg#icon-bookmark" style={mainOffer.isFavorite ? {stroke: '#4481c3', fill: '#4481c3'} : {}}></use>
